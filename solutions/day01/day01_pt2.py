@@ -2,29 +2,13 @@
 # Challenge #01, part 2
 # Ethan Kessel
 
+import numpy as np
+
 def main(input: str):
-    # input = """
-    #     199
-    #     200
-    #     208
-    #     210
-    #     200
-    #     207
-    #     240
-    #     269
-    #     260
-    #     263
-    # """
     depths = list(map(int, input.split()))
-    # print(depths, len(depths))
-    increasing = 0
-    for idx in range(3, len(depths)):
-        slice0 = depths[idx - 3 : idx]
-        slice1 = depths[idx - 2 : idx + 1]
-        # print(idx, slice0, slice1)
-        if sum(slice1) > sum(slice0):
-            increasing += 1
-    return increasing
+    convolved = np.convolve(depths, np.ones(3), mode="valid")
+    deltas = np.diff(convolved)
+    return np.count_nonzero(deltas > 0)
 
 from os import path
 import time

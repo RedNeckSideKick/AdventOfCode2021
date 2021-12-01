@@ -2,13 +2,12 @@
 # Challenge #01, part 1
 # Ethan Kessel
 
+import numpy as np
+
 def main(input: str):
     depths = list(map(int, input.split()))
-    increasing = 0
-    for idx in range(1, len(depths)):
-        if depths[idx] > depths[idx - 1]:
-            increasing += 1
-    return increasing
+    deltas = np.diff(depths)
+    return np.count_nonzero(deltas > 0)
 
 from os import path
 import time
