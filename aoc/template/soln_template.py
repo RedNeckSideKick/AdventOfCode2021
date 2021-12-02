@@ -3,6 +3,7 @@
 # Ethan Kessel
 
 def main(input: str):
+    input = input.splitlines()
     return input
 
 from os import path
@@ -23,4 +24,4 @@ if __name__ == "__main__":
         end_time__ns = time.perf_counter_ns()
         exec_time__us = (end_time__ns - start_time__ns) / 1000.0
 
-    print(f"\nExecution time: {exec_time__us:.1f}us\n\n{result=}\n")
+    print(f"\nExecution time: {exec_time__us:.1f}us\n\n{result = }\n")
