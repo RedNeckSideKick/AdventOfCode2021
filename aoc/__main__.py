@@ -39,12 +39,10 @@ class SafeFormatter(string.Formatter):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generates Advent of Code solution files from a template.")
     parser.add_argument("day", type=int, choices=range(1, 26), metavar="day", help="Challenge day, 1-25")
-    parser.add_argument("part", nargs="?", type=int, choices=(1, 2), default=1, metavar="part",
-                        help="Challenge part, 1 or 2 (default 1)")
     parser.add_argument("--force", default="x", action="store_const", const="w", help="Force file creation if exists")
 
     args = parser.parse_args()
-    print(f"Creating solution files for day {args.day}, part {args.part}")
+    print(f"Creating solution files for day {args.day}")
 
     mod_path = path.dirname(__file__)
     with open(path.join(mod_path, "template", "soln_template.py")) as template_file:
@@ -52,13 +50,13 @@ if __name__ == "__main__":
         # F-strings are used in other places, so the special formatter is needed
         # to pass them through without errors
         template = template_file.read()
-        template = SafeFormatter().format(template, day=args.day, part=args.part)
+        template = SafeFormatter().format(template, day=args.day)
 
         # Make the folder for the solution files (ok if they already exist)
         solution_dir = path.join(os.getcwd(), "solutions", f"day{args.day:02}")
         os.makedirs(solution_dir, exist_ok=True)
         # Create the solution file from the template (stop if already exists and no --force)
-        solution_fname = path.join(solution_dir, f"day{args.day:02}_pt{args.part}.py")
+        solution_fname = path.join(solution_dir, f"day{args.day:02}.py")
         try:
             with open(solution_fname, args.force) as solution_file:
                 solution_file.write(template)
