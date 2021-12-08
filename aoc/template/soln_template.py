@@ -33,6 +33,13 @@ def run_with_input(func: typing.Callable[[str], typing.Any], input: str) -> tupl
     exec_time__us = (end_time__ns - start_time__ns) / 1000.0
     return result, exec_time__us
 
+# Check result and ignore any errors with truth value of numpy arrays
+def check_result(result: typing.Any, expected: int):
+    try:
+        return bool(result == expected)
+    except:
+        return False
+
 if __name__ == "__main__":
     colr_init()
     print(f"{Back.WHITE}{Fore.BLACK} -* Advent of Code 2021 *- {Style.RESET_ALL}")
@@ -53,7 +60,7 @@ if __name__ == "__main__":
             result, exec_time__us = run_with_input(soln_func, SAMPLE_INPUT)
             print(f"Part {part} sample (exec time {exec_time__us:.1f}us): ", end="")
             # Type comparison to short-circuit before invalid equality comparison
-            if (isinstance(result, type(sample_result)) and result == sample_result):
+            if check_result(result, sample_result):
                 print(f"{Back.GREEN}{Fore.BLACK} PASSED {Style.RESET_ALL}")
 
                 # Run full input
@@ -62,5 +69,3 @@ if __name__ == "__main__":
             else:
                 print(f"{Back.RED}{Fore.BLACK} FAILED {Style.RESET_ALL}")
                 print(f"Expected {SAMPLE_INPUT}, produced:\n{Style.BRIGHT}{result}{Style.RESET_ALL}")
-
-
