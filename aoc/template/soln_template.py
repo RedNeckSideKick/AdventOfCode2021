@@ -52,7 +52,8 @@ if __name__ == "__main__":
             # Run and check sample
             result, exec_time__us = run_with_input(soln_func, SAMPLE_INPUT)
             print(f"Part {part} sample (exec time {exec_time__us:.1f}us): ", end="")
-            if (result == sample_result):
+            # Type comparison to short-circuit before invalid equality comparison
+            if (isinstance(result, type(sample_result)) and result == sample_result):
                 print(f"{Back.GREEN}{Fore.BLACK} PASSED {Style.RESET_ALL}")
 
                 # Run full input
