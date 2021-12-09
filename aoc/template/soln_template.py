@@ -68,4 +68,4 @@ if __name__ == "__main__":
                 print(f"Part {part} (exec time {exec_time__us:.1f}us) result: {Style.BRIGHT}{result}{Style.RESET_ALL}")
             else:
                 print(f"{Back.RED}{Fore.BLACK} FAILED {Style.RESET_ALL}")
-                print(f"Expected {SAMPLE_INPUT}, produced:\n{Style.BRIGHT}{result}{Style.RESET_ALL}")
+                print(f"Expected {sample_result}, produced:\n{Style.BRIGHT}{result}{Style.RESET_ALL}")
